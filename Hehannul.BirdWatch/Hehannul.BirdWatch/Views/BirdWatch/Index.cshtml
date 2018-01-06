@@ -1,0 +1,26 @@
+﻿@model Hehannul.BirdWatch.Models.BirWatchViewModels.IndexViewModel
+
+@{
+    ViewData["Title"] = "Havaintolaskuri";
+}
+
+<div>
+    <h2>Varikset</h2>
+    <p>Havainnot: @Model.NumberOfHoodedCrows</p>
+    <div class="setting-action">
+        <a type="button" class="btn btn-default settings-sm-btn" asp-action="Create" asp-route-BirdType="Varis">Lis&auml;&auml;</a>
+    </div>
+</div>
+
+<br />
+
+<div>
+    <h2>Harakat</h2>
+    <p>Havainnot: @Model.NumberOfPicaPicas</p>
+    <div class="setting-action">
+        <a type="button" class="btn btn-default settings-sm-btn" asp-action="Create" asp-route-BirdType="Harakka">Lis&auml;&auml;</a>
+    </div>
+</div>
+
+
+

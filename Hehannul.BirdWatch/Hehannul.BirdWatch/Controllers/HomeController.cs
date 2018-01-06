@@ -12,7 +12,7 @@ namespace Hehannul.BirdWatch.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return Redirect($"/BirdWatch/Index");
         }
 
         public IActionResult About()
