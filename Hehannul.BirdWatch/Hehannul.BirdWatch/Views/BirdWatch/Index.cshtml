@@ -8,7 +8,11 @@
     <h2>Varikset</h2>
     <p>Havainnot: @Model.NumberOfHoodedCrows</p>
     <div class="setting-action">
-        <a type="button" class="btn btn-default settings-sm-btn" asp-action="Create" asp-route-BirdType="Varis">Lis&auml;&auml;</a>
+        <form asp-action="AddWatch" asp-route-birdType="Varis" ethod="post" asp-antiforgery="true">
+            <div>
+                <input type="submit" value="Lis&auml;&auml;" class="btn btn-default settings-sm-btn" />
+            </div>
+        </form>
     </div>
 </div>
 
@@ -18,7 +22,11 @@
     <h2>Harakat</h2>
     <p>Havainnot: @Model.NumberOfPicaPicas</p>
     <div class="setting-action">
-        <a type="button" class="btn btn-default settings-sm-btn" asp-action="Create" asp-route-BirdType="Harakka">Lis&auml;&auml;</a>
+        <form asp-action="AddWatch" asp-route-birdType="Harakka" ethod="post" asp-antiforgery="true">
+            <div>
+                <input type="submit" value="Lis&auml;&auml;" class="btn btn-default settings-sm-btn" />
+            </div>
+        </form>
     </div>
 </div>
 
