@@ -4,31 +4,34 @@
     ViewData["Title"] = "Havaintolaskuri";
 }
 
-<div>
-    <h2>Varikset</h2>
-    <p>Havainnot: @Model.NumberOfHoodedCrows</p>
-    <div class="setting-action">
-        <form asp-action="AddWatch" asp-route-birdType="Varis" ethod="post" asp-antiforgery="true">
-            <div>
-                <input type="submit" value="Lis&auml;&auml;" class="btn btn-default settings-sm-btn" />
-            </div>
-        </form>
+<div class="row">
+    <div class="col-xs-12 title-panel">
+        <h2>Lintujen havaintolaskuri</h2>
     </div>
 </div>
 
-<br />
-
-<div>
-    <h2>Harakat</h2>
-    <p>Havainnot: @Model.NumberOfPicaPicas</p>
-    <div class="setting-action">
-        <form asp-action="AddWatch" asp-route-birdType="Harakka" ethod="post" asp-antiforgery="true">
-            <div>
-                <input type="submit" value="Lis&auml;&auml;" class="btn btn-default settings-sm-btn" />
+<div class="row">
+    <div class="col-lg-offset-2 col-lg-8">
+        <div class="setting-row">
+            <div class="setting-action">
+                <a type="button" class="btn btn-default settings-sm-btn" asp-action="Create">Lis&auml;&auml; laji</a>
             </div>
-        </form>
+        </div>
+        <hr />
     </div>
 </div>
 
-
-
+@for (int i = 0; i < Model.Birds.Count; i++)
+{
+    <div>
+        <h2>@Model.Birds[i].Name</h2>
+        <p>Havainnot: @Model.Birds[i].WatchCount</p>
+        <div class="setting-action">
+            <form asp-action="AddWatch" asp-route-birdType=@Model.Birds[i].Name ethod="post" asp-antiforgery="true">
+                <div>
+                    <input type="submit" value="Lis&auml;&auml;" class="btn btn-default settings-sm-btn" />
+                </div>
+            </form>
+        </div>
+    </div>
+}

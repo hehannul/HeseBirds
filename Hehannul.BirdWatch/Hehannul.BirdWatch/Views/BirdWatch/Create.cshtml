@@ -1,0 +1,48 @@
+﻿@model Hehannul.BirdWatch.Models.BirWatchViewModels.CreateViewModel
+
+@{
+    ViewData["Title"] = "Luo uusi lintulaji";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 title-panel">
+            <span class="left">
+                <h2>Lintulajein hallinta</h2>
+            </span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-offset-2 col-lg-8">
+            <div class="setting-row">
+                <div class="setting">
+                    <p>Luo uusi laji</p>
+                </div>
+            </div>
+            <hr />
+        </div>
+        <div class="col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
+            <form id="createBirdForm" asp-controller="BirdWatch" asp-action="Create" asp-antiforgery="true" method="post">
+                <div class="form-horizontal">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="@Model.BirdName" class="col-sm-4 control-label"></label>
+                        <div class="col-sm-8">
+                            <input asp-for="@Model.BirdName" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <input type="submit" value="Luo" class="btn btn-default settings-lg-btn center-block" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-offset-2 col-lg-8 back-link">
+        <a asp-action="Index">Takaisin</a>
+    </div>
+</div>

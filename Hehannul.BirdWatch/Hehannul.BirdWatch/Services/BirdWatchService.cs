@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Hehannul.BirdWatch.Domain;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace Hehannul.BirdWatch.Services
 {
     public class BirdWatchService : IBirdWatchService
     {
-        private Dictionary<string, int> _birdsDictionary =
+        private static Dictionary<string, int> _birdsDictionary =
             new Dictionary<string, int>();
 
         private readonly ILogger _logger;
@@ -23,16 +24,21 @@ namespace Hehannul.BirdWatch.Services
         }
 
         /// <summary>
-        /// Gets the amount of birds asunc.
+        /// Creates the bird asynchronous.
         /// </summary>
-        /// <param name="birdType">Type of the bird.</param>
+        /// <param name="birdName">Name of the bird.</param>
         /// <returns></returns>
-        public async Task<int> GetAmountOfBirdsAsunc(string birdType)
+        public async Task CreateBirdAsync(string birdName)
         {
-            _logger.LogInformation($"{birdType} havainnot");
-            return await Task.Run(() => _birdsDictionary.ContainsKey(birdType) ? _birdsDictionary[birdType] : 0);
+            var date = DateTime.Now;
+            if (_birdsDictionary.ContainsKey(birdName) == false)
+            {
+                await Task.Run(() => _birdsDictionary.Add(birdName, 0));
+                _logger.LogInformation($"{date} 5 – lajin lisäys: {birdName}");
+            }
         }
-
+        
+       
         /// <summary>
         /// Adds the bird asunc.
         /// </summary>
@@ -47,12 +53,37 @@ namespace Hehannul.BirdWatch.Services
         }
 
         /// <summary>
+        /// Lists all birds asynchronous.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<Bird>> ListAllBirdsAsync()
+        {
+            List<Bird> birds = new List<Bird>();
+            foreach (var bird in _birdsDictionary)
+            {
+                birds.Add(new Bird()
+                {
+                    Name = bird.Key,
+                    WatchCount = bird.Value
+                });
+            }
+            _logger.LogInformation($"Kaikki linnut");
+            return await Task.Run(() => birds);
+        }
+
+        /// <summary>
         /// Initializes the birds.
         /// </summary>
         private void InitBirds()
         {
-            _birdsDictionary.Add("Varis", 0);
-            _birdsDictionary.Add("Harakka", 0);
+            if (_birdsDictionary.ContainsKey("Varis") == false)
+            {
+                _birdsDictionary.Add("Varis", 0);
+            }
+            if (_birdsDictionary.ContainsKey("Harakka") == false)
+            {
+                _birdsDictionary.Add("Harakka", 0);
+            }
         }
 
         /// <summary>
@@ -61,11 +92,17 @@ namespace Hehannul.BirdWatch.Services
         /// <param name="birdType">Type of the bird.</param>
         private void NewWatchToLog(string birdType)
         {
-            var crows = _birdsDictionary.ContainsKey("Varis") ? _birdsDictionary["Varis"] : 0;
-            var picas = _birdsDictionary.ContainsKey("Harakka") ? _birdsDictionary["Harakka"] : 0;
+            var birdsText = string.Empty;
+            foreach (var item in _birdsDictionary)
+            {
+                birdsText += item.Key;
+                birdsText += " ";
+                birdsText += item.Value;
+                birdsText += " kpl ";
+            }
             var date = DateTime.Now;
             _logger.LogInformation($"{date} 5 – uusi havainto: {birdType}" +
-                $"– kaikki havainnot: varis {crows} kpl, harakka {picas} kpl");
+                $"– kaikki havainnot: {birdsText}");
         }
     }
 }

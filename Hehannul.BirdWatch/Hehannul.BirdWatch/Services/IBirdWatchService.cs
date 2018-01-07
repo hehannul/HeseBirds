@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Hehannul.BirdWatch.Services
@@ -8,12 +6,19 @@ namespace Hehannul.BirdWatch.Services
     public interface IBirdWatchService
     {
         /// <summary>
-        /// Gets the amount of birds asunc.
+        /// Lists all birds asynchronous.
         /// </summary>
-        /// <param name="birdType">Type of the bird.</param>
         /// <returns></returns>
-        Task<int> GetAmountOfBirdsAsunc(string birdType);
+        Task<IEnumerable<Domain.Bird>> ListAllBirdsAsync();
 
+        /// <summary>
+        /// Creates the bird asynchronous.
+        /// </summary>
+        /// <param name="birdName">Name of the bird.</param>
+        /// <returns></returns>
+        Task CreateBirdAsync(string birdName);
+
+      
         /// <summary>
         /// Adds the bird asunc.
         /// </summary>
